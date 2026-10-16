@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viewin - Quick Connect</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="bg-particles" id="particles"></div>
+    
+    <div class="container">
+        <header>
+            <h1>⚡ Viewin</h1>
+            <p class="tagline">Quick Connect & Reach</p>
+            <div class="server-status" id="serverStatus">
+                <span class="status-dot offline"></span>
+                <span id="statusText">Checking server...</span>
+            </div>
+        </header>
+
+        <main class="card">
+            <form id="mainForm">
+                <div class="section-title">👤 Profile Setup</div>
+                
+                <div class="row">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" placeholder="Your name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="age">Age</label>
+                        <input type="number" id="age" value="25" min="18" max="99" required>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group">
+                        <label for="gender">Gender</label>
+                        <select id="gender">
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="country">Country</label>
+                        <select id="country">
+                            <option value="United States">🇺🇸 United States</option>
+                            <option value="United Kingdom">🇬🇧 United Kingdom</option>
+                            <option value="India" selected>🇮🇳 India</option>
+                            <option value="Canada">🇨🇦 Canada</option>
+                            <option value="Australia">🇦🇺 Australia</option>
+                            <option value="Germany">🇩🇪 Germany</option>
+                            <option value="France">🇫🇷 France</option>
+                            <option value="Pakistan">🇵🇰 Pakistan</option>
+                            <option value="Bangladesh">🇧🇩 Bangladesh</option>
+                            <option value="Brazil">🇧🇷 Brazil</option>
+                            <option value="Philippines">🇵🇭 Philippines</option>
+                            <option value="Egypt">🇪🇬 Egypt</option>
+                            <option value="Turkey">🇹🇷 Turkey</option>
+                            <option value="Indonesia">🇮🇩 Indonesia</option>
+                            <option value="Saudi Arabia">🇸🇦 Saudi Arabia</option>
+                            <option value="Japan">🇯🇵 Japan</option>
+                            <option value="South Korea">🇰🇷 South Korea</option>
+                            <option value="Russia">🇷🇺 Russia</option>
+                            <option value="Mexico">🇲🇽 Mexico</option>
+                            <option value="Italy">🇮🇹 Italy</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="section-title">💬 Message</div>
+                
+                <div class="form-group">
+                    <label for="message">Your Message</label>
+                    <textarea id="message" placeholder="Type your message here..." rows="3" required>hello</textarea>
+                    <div class="char-count"><span id="charCount">5</span> characters</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="quantity">Quantity (number of users)</label>
+                    <div class="quantity-control">
+                        <button type="button" class="qty-btn" onclick="changeQty(-1)">−</button>
+                        <input type="number" id="quantity" value="5" min="1" max="20" required>
+                        <button type="button" class="qty-btn" onclick="changeQty(1)">+</button>
+                    </div>
+                    <div class="hint">Max 20 users per batch</div>
+                </div>
+
+                <button type="submit" class="btn-primary" id="sendBtn">
+                    <span class="btn-text">🚀 Send Messages</span>
+                    <span class="btn-loading" style="display:none">
+                        <div class="spinner"></div>
+                        Sending...
+                    </span>
+                </button>
+            </form>
+        </main>
+
+        <!-- Task Progress -->
+        <div class="card" id="progressCard" style="display:none">
+            <div class="section-title">📊 Progress</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width:0%"></div>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-value sent" id="statSent">0</div>
+                    <div class="stat-label">Sent</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value failed" id="statFailed">0</div>
+                    <div class="stat-label">Failed</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value total" id="statTotal">0</div>
+                    <div class="stat-label">Total</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Live Log -->
+        <div class="card">
+            <div class="log-header">
+                <div class="section-title">📋 Live Log</div>
+                <button class="btn-clear" onclick="clearLog()">Clear</button>
+            </div>
+            <div class="log-container" id="logContainer">
+                <div class="log-entry log-info">Ready. Configure and click Send.</div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Viewin v1.0 • Fork & Deploy on Vercel</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
