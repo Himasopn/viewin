@@ -206,28 +206,35 @@ function startPolling(taskId, quantity) {
     }, 2000);
 }
 
+// ---- Country → State visibility ----
+const COUNTRIES_WITH_STATES = [
+    'United States', 'India', 'Canada', 'Australia', 'Brazil',
+    'Mexico', 'Germany', 'Russia', 'Italy', 'France', 'United Kingdom'
+];
+
+function onCountryChange() {
+    const country = document.getElementById('country').value;
+    const sg = document.getElementById('stateGroup');
+    if (sg) sg.style.display = COUNTRIES_WITH_STATES.includes(country) ? 'block' : 'none';
+}
+
 // ---- Event Listeners ----
 document.getElementById('mainForm').addEventListener('submit', async (e) => {
     e.preventDefault();
-    
+
     const formData = {
         username: document.getElementById('username').value.trim(),
         age: document.getElementById('age').value,
         gender: document.getElementById('gender').value,
         country: document.getElementById('country').value,
+        state: (document.getElementById('state') || {value:''}).value.trim(),
         message: document.getElementById('message').value.trim(),
         quantity: parseInt(document.getElementById('quantity').value)
     };
-    
-    if (!formData.username) {
-        addLog('Please enter a username', 'error');
-        return;
-    }
-    if (!formData.message) {
-        addLog('Please enter a message', 'error');
-        return;
-    }
-    
+
+    if (!formData.username) { addLog('Please enter a username', 'error'); return; }
+    if (!formData.message)  { addLog('Please enter a message',  'error'); return; }
+
     await sendMessages(formData);
 });
 
@@ -236,6 +243,6 @@ document.getElementById('message').addEventListener('input', updateCharCount);
 // ---- Init ----
 window.addEventListener('load', () => {
     discoverServer();
-    // Re-check server every 60 seconds
     setInterval(discoverServer, 60000);
+    onCountryChange();
 });
